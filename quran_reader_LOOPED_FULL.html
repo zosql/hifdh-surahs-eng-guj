@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>22 Surahs in English and Gujarati</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .night-mode {
+            background: #121212;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .night-mode .container {
+            background: #1e1e1e;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .controls button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .search {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .surah {
+            font-size: 18px;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>22 Surahs in English and Gujarati</h1>
+        <input type="text" id="search" class="search" placeholder="Search Surah...">
+        <div class="controls">
+            <button onclick="prevSurah()">← Previous</button>
+            <button id="toggleLang" onclick="toggleLanguage()">Switch to Gujarati</button>
+            <button onclick="nextSurah()">Next →</button>
+            <button onclick="toggleNightMode()">🌙 Night Mode</button>
+        </div>
+        <div id="surahContent" class="surah"></div>
+    </div>
+
+    <script>
+        const data = [
+    {
+        "No": 1,
+        "Surah English": "Surah Al-Kaafirun (Separation between monotheism and disbelief in worship) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nSay, “O disbelievers!”\n\nI do not worship what you worship.\n\nNor are you worshippers of what I worship.\n\nAnd I will not worship what you have worshipped.\n\nNor will you be worshippers of what I worship.\n\nFor you is your religion, and for me is my religion.",
+        "Surah Gujarati": "સૂરત અલ્ કાફિરૂન (તમે કહી દો કે અય ઇન્કારીઓ) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nતમે કહી દો કે અય ઇન્કારીઓ.\n\nન હું બંદગી કરૂ છું તેની, જેની તમે બંદગી કરો છો.\n\nન તમે બંદગી કરવાના છો તેની, જેની હું બંદગી કરૂ છું.\n\nઅને ન હું બંદગી કરીશ, જેની તમે બંદગી કરો છો.\n\nઅને ન તમે તેની બંદગી કરવાના છો, જેની હું બંદગી કરી રહ્યો છું.\n\nતમારા માટે તમારો દીન છે અને મારા માટે મારો દીન છે."
+    },
+    {
+        "No": 2,
+        "Surah English": "Surah Al-Ikhlaas (Affirmation of Allah’s absolute Oneness and purity) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nSay, “He is Allah, [who is] One.”\n\nAllah, the Eternal Refuge.\n\nHe neither begets nor is born,\n\nNor is there to Him any equivalent.",
+        "Surah Gujarati": "સૂરત અલ્ ઇખ્લાસ (તે અલ્લાહ તઆલા એક જ છે) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nતમે કહી દો કે તે અલ્લાહ તઆલા એક જ છે.\n\nઅલ્લાહ તઆલા બેનિયાઝ છે. (એવી હસ્તી કે દરેક સર્જનને તેની જરૂર છે, તેને કોઇની જરૂર નથી.)\n\nન તેનાથી કોઇ પેદા થયુ અને ન તે કોઇના થી પેદા થયો.\n\nઅને ન કોઇ તેની સરખામણીનું છે."
+    },
+    {
+        "No": 3,
+        "Surah English": "Surah An Naas (Seeking refuge in the Lord of mankind from spiritual whispers) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nI seek refuge in the Lord of mankind \n\nThe Master of mankind \n\nThe God of mankind\n\nFrom the evil of the lurking whisperer \n\nWho whispers into the hearts of mankind\n\nFrom among jinns and mankind.",
+        "Surah Gujarati": "સૂરત અન્નાસ  (લોકોની શરણ માંગવાવાળી સૂરત) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nતમે કહી દો ! કે હું લોકોના પાલનહારની શરણમાં આવું છું\n\nલોકોના માલિકના\n\nલોકોના મઅબૂદના શરણમાં\n\nશંકાઓ નાખનાર, પાછા હટી જનારની બુરાઇથી\n\nજે લોકોના હૃદયોમાં શંકાઓ નાખે છે\n\n(પછી) તે જિન્નાતોમાં થી હોય અથવા તો મનુષ્યોમાં થી"
+    },
+    {
+        "No": 4,
+        "Surah English": "Surah Al Falaq (Seeking protection from external evils and unseen harms) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nI seek refuge in the Lord of the daybreak \n\nFrom the evil of whatever he has created \n\nAnd the evil of the night when it grows dark\n\nAnd the evil of those castings spells by blowing into knots\n\nAnd the evil of the envier when he envies.",
+        "Surah Gujarati": "સૂરત અલ-ફલક (સવારની શરણ વાળી સૂરત) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nતમે કહી દો ! કે હું સવારના પાલનહારની શરણમાં આવું છું.\n\nદરેક તે વસ્તુની બુરાઇથી જે તેણે પેદા કરી.\n\nઅને અંધારી રાત્રિની બુરાઇથી જ્યારે તેનું અંધારૂ ફેલાય જાય.\n\nઅને ગાંઠ (લગાવીને તે) માં ફુંકનારની બુરાઇથી (પણ).\n\nઅને ઇર્ષા કરનારાઓ ની બુરાઇથી જ્યારે તે ઇર્ષા કરે."
+    },
+    {
+        "No": 5,
+        "Surah English": "Surah Al-Masad (Condemnation of Abu Lahab and arrogant rejection of truth) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nMay the hands of Abu Lahab be ruined, and ruined is he.\n\nHis wealth will not avail him or that which he gained.\n\nHe will [enter to] burn in a Fire of [blazing] flame.\n\nAnd his wife [as well]—the carrier of firewood.\n\nAround her neck is a rope of [twisted] fiber.",
+        "Surah Gujarati": "સૂરત અલ્ મસદ (અબૂ લહબ અને તેની પત્ની માટે વિનાશનાં વચનો) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nઅબૂ લહબ ના બન્ને હાથ તુટી ગયા અને તે (પોતે) બરબાદ થઇ ગયો.\n\nન તો તેનું ધન તેના માટે કામ આવ્યું અને ન તો તેની કમાણી.\n\nતે નજીકમાં ભડકાવેલી આગમાં જશે.\n\nઅને તેની પત્નિ પણ (જશે) જે લાકડીઓ ઉઠાવનારી છે,\n\nતેના ગળામાં કાથીનું દોરડું હશે."
+    },
+    {
+        "No": 6,
+        "Surah English": "Surah An-Nasr (Victory of Islam and the command to glorify Allah) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nWhen the help of Allah and the victory comes,\n\nAnd you see the people entering into the religion of Allah in multitudes,\n\nThen exalt [Him] with praise of your Lord and ask forgiveness of Him. Indeed, He is ever Accepting of repentance.",
+        "Surah Gujarati": "સૂરત અન્નસ્ર (વિજય અને અલ્લાહની મદદની સૂરત) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nજ્યારે અલ્લાહની મદદ અને વિજય આવી જાય,\n\nઅને તમે લોકોને અલ્લાહના દીનમાં ટોળે-ટોળા આવતા જોઇ લો.\n\nતમે પોતાના પાલનહારની “તસ્બીહ” (ગુણગાન) માં લાગી જાવ, પ્રશંસા સાથે, અને તેનાથી ક્ષમાની દુઆ માંગ, નિ:શંક તે ખુબ જ ક્ષમા કબુલ કરવાવાળો છે."
+    },
+    {
+        "No": 7,
+        "Surah English": "Surah Al-Kawthar (Abundance given to the Prophet and warning to the mocker) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nIndeed, We have granted you [O Muhammad], al-Kawthar.\n\nSo pray to your Lord and sacrifice [to Him alone].\n\nIndeed, your enemy is the one cut off.",
+        "Surah Gujarati": "સૂરત અલ્ કોઉસર (અલ્લાહના વિપુલ બક્ષિસ વિશે) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nનિ:શંક અમે તમને (હૌઝ) કૌષર (અને ઘણું બધુ) આપ્યું છે.\n\nબસ ! તું પોતાના પાલનહાર માટે નમાઝ પઢ અને કુરબાની કર.\n\nખરેખર તમારો શત્રુ જ વારસદાર વગરનો છે, અને બદનામ છે."
+    },
+    {
+        "No": 8,
+        "Surah English": "Surah Al-Ma’un (Warning against denial of the deen and neglect of the needy) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nHave you seen the one who denies the Recompense?\n\nFor that is the one who drives away the orphan\n\nAnd does not encourage the feeding of the poor.\n\nSo woe to those who pray\n\n[But] who are heedless of their prayer –\n\nThose who make show [of their deeds]\n\nAnd withhold [simple] assistance.",
+        "Surah Gujarati": "સૂરત અલ્ માઉન (દીન ના ઇનકાર અને સામાજિક બેદરકારી વિષે) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nશું તમે (તેને પણ) જોયો જે બદલાના દિવસને જુઠલાવે છે ?\n\nઆ જ તે છે જે અનાથને ધક્કા મારે છે,\n\nઅને ગરીબને ખવડાવવાનું પ્રોત્સાહન નથી આપતો.\n\nતે નમાઝીઓ માટે ખેદ છે (અને વૈલ નામની જહન્નમની જગ્યા) છે.\n\nજે પોતાની નમાઝથી બેપરવાહ છે.\n\nજે દેખાડો કરે છે,\n\nઅને સામાન્ય જરૂરિયાતથી રોકે છે."
+    },
+    {
+        "No": 9,
+        "Surah English": "Surah Quraysh (Allah’s favors to Quraysh and call to worship the Lord of the Kaabah) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nFor the accustomed security of the Quraysh –\n\nTheir accustomed security [in] the caravan of winter and summer –\n\nLet them worship the Lord of this House,\n\nWho has fed them, [saving them] from hunger and made them safe from fear.",
+        "Surah Gujarati": "સૂરત કુરૈશ (કુરૈશ જાતિ પર થયેલા આશિર્વાદ વિષે) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nકુરૈશીઓ માં શોખ ઉત્પન્ન થવાને કારણે.\n\n(એટલે કે) તેમને શિયાળા અને ઉનાળાના સફરથી ટેવાઇ જવા માટે, (તેના ઉપકારમાં)\n\nબસ ! તેમણે જોઇએ કે તે જ ઘર ના પાલનહારની બંદગી કરતા રહે.\n\nજેણે તેમને ભૂખમરામાં ખવડાવ્યું, અને ડર (ભય) માં શાંતિ (અને નિશ્ર્ચિંતતા) આપી."
+    },
+    {
+        "No": 10,
+        "Surah English": "Surah Al-Feel (Destruction of the army of the elephant – divine protection) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nHave you not seen how your Lord dealt with the companions of the elephant?\n\nDid He not make their plan go astray?\n\nAnd He sent against them birds in flocks,\n\nStriking them with stones of hard clay,\n\nAnd He made them like eaten straw.",
+        "Surah Gujarati": "સૂરત અલ્ ફીલ (અબ્રાહાની હાથીવાળી સેના નું વિનાશ) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nશું તમે ન જોયું, કે તમારા પાલનહારે હાથીવાળાઓ સાથે શું કર્યુ ?\n\nશું તેમની યુક્તિને નિષ્ફળ ન કરી દીધી ?\n\nઅને તેમના ઉપર પક્ષીઓના ટોળે-ટોળા મોકલી દીધા.\n\nજે તેમને માટી અને પત્થરની કાંકરીઓ મારી રહ્યા હતા.\n\nબસ ! તેમને ખાધેલા ભુસા જેવા કરી નાખ્યા."
+    },
+    {
+        "No": 11,
+        "Surah English": "Surah Al-Humazah (Woe to the slanderers and hoarders obsessed with wealth) :-)\n\nBismillah Ir Rehman Ir Raheem \n\nWoe to every kind of scandal-monger and backbiter\n\nWho pileth up wealth and layeth by it\n\nThinking that his wealth would make him last forever \n\nBy no means! He will surely be thrown into that which breaks into pieces\n\nAnd what will explain to you that which breaks into pieces?\n\nIt is the Fire of Allah kindled to a blaze\n\nThat which mounts directly to the Hearts\n\nIt shall be made into a vault over them\n\nIn columns outstretched",
+        "Surah Gujarati": "સૂરત અલ્હુમઝાહ (અપમાન અને માલના મોહવાળાઓની તકદીર) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nમોટો વિનાશ છે તે દરેક વ્યક્તિ માટે જે મેણા-ટોણા મારનાર, નિંદા કરવા વાળો હોય\n\nજે ધન એકઠું કરતો જાય અને ગણતો જાય\n\nતે સમજે છે કે તેનું ધન તેની પાસે હંમેશા રહેશે\n\nકદાપિ નહીં, આ તો જરૂર તોડી ફોડી નાખનાર આગમાં નાખી દેવામાં આવશે\n\nઅને તને શું ખબર કે આ આગ કેવી હશે ?\n\nતે અલ્લાહ તઆલાએ ભડકાવેલી આગ હશે\n\nજે હૃદયો પર ચઢતી જશે\n\nતે તેમના ઉપર બધી બાજુથી બંધ કરેલી હશે\n\nમોટા મોટા સ્તંભોમાં"
+    },
+    {
+        "No": 12,
+        "Surah English": "Surah Al Asr (Human loss except for those with faith, deeds, truth, and patience) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nBy the passage of time\n\nSurely humanity is in great loss\n\nExcept those who have faith, do good, \n\nAnd urge each other to the truth \n\nAnd patient perseverance",
+        "Surah Gujarati": "સૂરત અલ્ અસ્ર (માનવ જીવનની ક્ષણભંગુરતા અને ઈમાનદારોના ગુણો) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nજમાનાના સોગંદ\n\nનિ:શંક માનવી ખરેખર નુકસાનમાં છે\n\nસિવાય તે લોકોના જેઓ ઇમાન લાવ્યા, અને સારા કાર્યો કર્યા\n\nઅને (જેમણે) એકબીજાને સત્યનું સૂચન કર્યુ,\n\nઅને એકબીજાને ધૈર્યની શિખામણ આપી"
+    },
+    {
+        "No": 13,
+        "Surah English": "Surah At Takathur (Distraction of worldly competition and the reality of the grave) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nCompetition for worldly gains diverts you from Allah\n\nUntil you end up in your graves \n\nBut no! You will soon come to know \n\nAgain, no! You will soon come to know \n\nIndeed if you had the knowledge of your fate, you would act differently \n\nBut you will surely see the hell fire \n\nAgain, you will see the hell fire with the eye of certainty\n\nThen on that day you will be questioned about your worldly pleasures.",
+        "Surah Gujarati": "સૂરત અત્તકાસુર (ધનસંપત્તિ અને લાલચના મુખા પર ચેતવણી) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nવધુ પ્રાપ્તિની ઘેલછાએ તમને બેધ્યાન કરી દીધા\n\nએટલે સુધી કે તમે કબર સુધી પહોંચ્યા\n\nકદાપિ નહીં, તમે નજીકમાં જાણી લેશો\n\nકદાપિ નહીં , ફરી તમે ટૂંક સમયમાં જાણી લેશો\n\nકદાપિ નહીં , અગર તમે ખરેખર જાણી લો\n\nતો નિ:શંક તમે જહન્નમ જોઇ લેશો\n\nઅને તમે તેને વિશ્ર્વસનીય આંખથી જોઇ લેશો\n\nફરી તે દિવસે તમારાથી ચોક્કસપણે કૃપા વિશે પુછતાછ થશે"
+    },
+    {
+        "No": 14,
+        "Surah English": "Surah Al-Qaari‘ah (The Striker – a vivid portrayal of Judgment Day and the scales) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nThe Striking Calamity –\n\nWhat is the Striking Calamity?\n\nAnd what can make you know what is the Striking Calamity?\n\nIt is the Day when people will be like moths, dispersed,\n\nAnd the mountains will be like wool, fluffed up.\n\nThen as for one whose scales are heavy [with good deeds],\n\nHe will be in a pleasant life.\n\nBut as for one whose scales are light,\n\nHis refuge will be an abyss.\n\nAnd what can make you know what that is?\n\nIt is a Fire, intensely hot.",
+        "Surah Gujarati": "સૂરત અલ્ કારીઅહ (પ્રલય દિવસનું ધ્રુજારીભર્યું વર્ણન) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nખટખટાવી નાખનાર.\n\nશું છે તે ખટખટાવી નાખનાર.\n\nતને શું ખબર તે ખટખટાવી નાખનાર શું છે.\n\nજે દિવસે માનવી વિખરાયેલા પતંગિયાની માફક થઇ જશે.\n\nઅને પર્વતો પિંજાયેલા રંગીન ઊન જેવા થઇ જશે.\n\nપછી જેના પલ્લા ભારે હશે.\n\nતો તેઓ મનપસંદ એશઆરામ માં હશે.\n\nઅને જેના પલ્લાઓ હલ્કા હશે.\n\nતેમનું ઠેકાણું હાવિયહ છે.\n\nતને શું ખબર કે તે શું છે ?\n\nભડકે બળતી આગ (છે)."
+    },
+    {
+        "No": 15,
+        "Surah English": "Surah Al-Aadiya't (Oaths by galloping steeds to highlight human ingratitude) :-)\n\nBismillah Ir Rehman Ir Raheem \n\nBy the racers, panting\n \nAnd the producers of sparks \n\nAnd the chargers at dawn\n\nStirring up dust\n\nArriving at the centre collectively\n\nIndeed, man to his Lord is ungrateful\n\nAnd indeed he is to that a witness\n\nAnd indeed he is in love of wealth, intense\n\nBut does he not know that when the contents of the graves are scattered \n\nAnd that, within the chests, is obtained \n\nIndeed, their Lord with them, that Day, is fully Aware",
+        "Surah Gujarati": "સૂરત અલઆદિયાત (ઘોડેસવારોની કसम અને માનવીની ناشکری) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nહાંફતા દોડનારા ઘોડાઓના સોગંદ\n\nપછી ટાપ મારીને અંગારા ખેરનારાઓના સોગંદ\n\nપછી વહેલી સવારે છાપા મારનારના સોગંદ\n\nબસ ! તે વખતે ધુળની ડમરીઓ ઉડાવે છે\n\nપછી તેની સાથે લશકરના ટોળામાં ઘુસી જાય છે\n\nખરેખર માનવી પોતાના પાલનહાર નો ખુબ જ અપકારી છે\n\nઅને નિ:સંદેહ તે સ્વયં તેના પર સાક્ષી છે\n\nતે માલના મોંહ માં પણ સખત છે\n\nશું તેને તે સમય ની ખબર નથી જ્યારે કબરો માં જે (કંઇ) છે, કાઢી લેવામાં આવશે\n\nઅને હૃદયો ની છુપી વાતો કાઢી નાખવામાં આવશે\n\nચોક્કસપણે તેમનો પાલનહાર તે દિવસે તેમની અવસ્થાથી વાકેફ હશે"
+    },
+    {
+        "No": 16,
+        "Surah English": "Surah Al-Zalzalah (The earthquake of the Hour and revelation of deeds) :-)\n\nBismillah Ir Rehman Ir Raheem \n\nWhen the Earth is shaken with its ultimate shaking\n\nAnd when the Earth throws out its contents\n\nAnd man cries, what is wrong with it?\n\nOn that Day it will report it's news \n\nHaving been inspired by your Lord \n\nOn that Day, people will proceed in separate groups,  to be shown (consequences of) their deeds \n\nSo whoever does an atom's weight of good will sees it\n\nAnd whoever does an atom's weight of evil will see it",
+        "Surah Gujarati": "સૂરત અઝ્ઝલઝલાહ્ (જમીનના કંપન અને કર્મોની ગણતરીનો દ્રશ્ય) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nજ્યારે જમીન પૂરેપૂરી હલાવી નાખવામાં આવશે\n\nઅને જમીન પોતાનો બોજ બહાર કાઢી ફેંકી દેશે\n\nમાનવી કહેવા લાગશે કે આને શું થઇ ગયુ ?\n\nતે દિવસે જમીન પોતાની દરેક વાતોનું વર્ણન કરી દેશે\n\nએટલા માટે કે તારા પાલનહારે તેને આદેશ આપ્યો હશે\n\nતે દિવસે લોકો અલગ-અલગ સમુહ બનીને પાછા ફરશે, જેથી તેમને તેમના કર્મ બતાવવામાં આવે\n\nબસ ! જેણે રજભાર ભલાઇ કરી હશે, તે તેને જોઇ લેશે\n\nઅને જેણે રજભાર બુરાઇ કરી હશે, તે તેને જોઇ લેશે"
+    },
+    {
+        "No": 17,
+        "Surah English": "Surah Al-Qadr (Night of Decree – revelation, angels, peace, and power) :-)\n\nBismillah Ir-Rahmaan Ir-Raheem\n\nIndeed, We sent the Qur'an down during the Night of Decree.\n\nAnd what can make you know what is the Night of Decree?\n\nThe Night of Decree is better than a thousand months.\n\nThe angels and the Spirit descend therein by permission of their Lord for every matter.\n\nPeace it is until the emergence of dawn.",
+        "Surah Gujarati": "સૂરત અલ્ કદર (લૈલતુલ કદર - تقديرની રાતનું મહાત્મ્ય) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nનિ:શંક અમે આ (કુરઆન) ને કદ્રની રાતમાં ઉતાર્યુ.\n\nતને શું ખબર કે કદ્રની રાત શું છે ?\n\nકદ્રની રાત એક હજાર મહીનાઓ થી ઉત્તમ છે.\n\nતે (રાતમાં દરેક કાર્ય) કરવા માટે પોતાના પાલનહારના આદેશથી ફરિશ્તાઓ અને રૂહ (જિબ્રઇલ) ઉતરે છે.\n\nઆ રાત્રિ સંપૂર્ણ સલામતી વાળી હોય છે અને પરોઢના ઉદય સુધી (રહે છે)."
+    },
+    {
+        "No": 18,
+        "Surah English": "Surah At-Tin (The nobility of man, conditions of decline, and reward of faith) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nBy the oath of the Fig tree and the Olive tree\n\nAnd by Mount Sinai \n\nAnd by the Protected City (Mecca)\n\nMankind is created as the best of creations :-)\n\nThen mankind is reduced to nothingness.\n\nExcept those who do good and believe.\n\nWhat makes you deny this judgement?\n\nIsn't Allah swt the best of judges?",
+        "Surah Gujarati": "સૂરત અત્તીન (માનવીની ઉન્નતિ, તેની પતનશીલતા અને ઈમાનદાર માટેનું ઈનામ) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nસોગંદ છે અંજીર અને જેતૂનના.\n\nઅને તૂરે સીનીન્ ના (એક પર્વત નું નામ).\n\nઅને તે શાંતિવાળા શહેરના.\n\nનિ:શંક અમે માનવીનું સર્વોત્તમ સ્વરૂપમાં સર્જન કર્યુ.\n\nપછી તેને નીચા માં નીચો કરી દીધો.\n\nપરંતુ જે લોકો ઇમાન લાવ્યા અને (પછી) સદકાર્યો કર્યા તો તેમના માટે એવો બદલો છે જે કદી ખત્મ નહીં થાય.\n\nબસ ! તને બદલાના દિવસને જુઠલાવવા પર કઇ વસ્તુ ઉભારે છે.\n\nશું અલ્લાહ તઆલા (બધા) નિર્ણયકર્તાઓ નો નિર્ણયકર્તા નથી."
+    },
+    {
+        "No": 19,
+        "Surah English": "Surah Al-Inshirah (Consolation to the Prophet – ease follows hardship and elevation) :-)\n\nBismillah Ir Rehman Ir Raheem \n\nDid We not expand your (Muhammad SAW) chest for you?\n\nAnd removed from you your burden\n\nWhich had weighed so heavily upon your back\n\nAnd raised high for you your repute and remembrance?\n\nFor indeed, with hardships is ease \n\nIndeed with hardships is ease \n\nSo when you have finished your tasks, stand up for prayers \n\nAnd to your Lord alone direct your deepest longing",
+        "Surah Gujarati": "સૂરત અશ્શરહ્ (નબીના છાતી ખુલવાની વાત અને મુશ્કેલી પછી સરળતા) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nશું અમે તમારી છાતી નથી ખોલી નાખી\n\nઅને તમારા પર થી તમારો ભાર અમે ઉતારી દીધો\n\nજેણે તમારી પીઠ તોડી દીધી હતી\n\nઅને અમે તમારા સ્મરણને ઉન્નતિ આપી\n\nબસ ! નિ:શંક તંગીની સાથે સરળતા છે\n\nચોક્કસપણે તંગીની સાથે સરળતા છે\n\nબસ જ્યારે તમે પરવારી જાવ તો બંદગી માં મહેનત કરો\n\nઅને પોતાના પાલનહાર તરફ જ મગ્ન થઇ જાવ"
+    },
+    {
+        "No": 20,
+        "Surah English": "Surah Ad-Dhuhaa (Reassurance to the Prophet – past favors and future promises) :-)\n\nBismillah ar-Rehmaan ar-Raheem\n\nBy the morning brightness\n\nAnd the night when it grows still\n\nYour Lord has not forsaken you, nor does He hate you\n\nAnd surely the Hereafter is better for you than the first\n\nAnd your Lord will surely give you, and you will be satisfied\n\nDid He not find you an orphan and give you refuge?\n\nAnd He found you unaware, and guided you\n\nAnd He found you in need, and enriched you\n\nSo do not oppress the orphan\n\nAnd do not repel the seeker\n\nAnd proclaim the blessings of your Lord",
+        "Surah Gujarati": "સૂરત અદ્દુહા (અલ્લાહની તસલ્લી અને નબીની જીવનયાત્રા) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nસોગંદ છે પ્રકાશિત સમયનાં\n\nઅને સોગંદ છે રાત્રિના જ્યારે છવાઇ જાય\n\nન તો તારા પાલનહારે તને છોડયો છે, અને ન તો તે કંટાળ્યો છે\n\nનિશ્ર્ચિતપણે તમારા માટે પરિણામ શરૂઆત કરતા ઉત્તમ હશે\n\nતમને તમારો પાલનહાર ખુબ નજીકમાં ફળ આપશે અને તમે ખુશ થઇ જશો\n\nશું તેણે તમને અનાથ જોઇ શરણ ન આપ્યું ?\n\nઅને તમને માર્ગથી અજાણ જોઇ માર્ગદર્શન ન આપ્યું\n\nઅને તમને નિર્ધન જોઇ ધનવાન ન બનાવી દીધા ?\n\nબસ ! તમે અનાથ સાથે કઠોર વ્યવહાર ન કરો\n\nઅને ન માંગવાવાળા ને ધુત્કારો\n\nઅને પોતાના પાલનહારની કૃપાનું વર્ણન કરતા રહો"
+    },
+    {
+        "No": 21,
+        "Surah English": "Surah As Shams (The soul’s struggle between purity and corruption) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nBy the oath of the Sun and its brightness \n\nBy the oath of the Moon as it follows \n\nBy the day as it unveils\n\nBy the night as it conceals\n\nBy Heaven and the One who built it\n\nBy the Earth and the One who spread it\n\nBy the soul and the one who fashioned it\n\nThen inspired the soul with the knowledge of right and wrong\n\nSuccessful indeed is the one who purifies their soul\n\nDoomed is the one that corrupts their soul\n\nThe Thamud people disobeyed due to their arrogance \n\nWhen the most wicked of them was roused to kill the she-camel\n\nThe messenger of Allah swt warned them to not kill the she-camel and let her quench her thirst\n\nYet they defied him and slaughtered the she-camel\n\nSo Allah swt crushed them for their crimes \n\nAnd levelled them to the ground\n\nHe has no fear consequences",
+        "Surah Gujarati": "સૂરત અશ્શમ્સ (સૂર્ય, નફ્સ અને તેને પવિત્ર કરનાર વિષે કસમો) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nસોગંદ છે સૂર્યના તથા તેના તડકાના\n\nસોગંદ છે ચદ્રના જ્યારે તેની પાછળ આવે\n\nસોગંદ છે દિવસના જ્યારે સૂર્યને પ્રગટ કરે\n\nસોગંદ છે રાત્રિના જ્યારે તેને ઢાકી દે\n\nસોગંદ છે આકાશના અને તેના સર્જનના\n\nસોગંદ છે ધરતીના અને તેને બરાબર કરવાના\n\nસોગંદ છે આત્માના અને તેને ઠીક-ઠાક કરવાના\n\nફરી સમજ આપી તેને બુરાઇની અને ભલાઇની\n\nજેણે તેને પવિત્ર કરી તે સફળ થયો\n\nઅને જેણે તેને મેલુ કર્યુ તે નિષ્ફળ થયો\n\n(કોમ) ષમૂદે પોતાના વિદ્રોહના કારણે જુઠલાવ્યું\n\nજ્યારે તેમના માં નો મોટો દુર્ભાગી ઉભો થયો\n\nતેમને અલ્લાહ ના પયગંબરે કહી દીધુ હતું કે અલ્લાહ તઆલાની ઊંટણીઅને તેની પીવાનીવારી ની (સુરક્ષા કરો)\n\nતે લોકોએ પોતાના પયગંબર ને જુઠો સમજી તે ઊંટણી ના હાથ-પગ કાપી નાખ્યા\n\nબસ ! તેમના પાલનહારે તેમના ગુનાહોના કારણે તેમના ઉપર પ્રકોપ ઉતાર્યો\n\nઅને પછી પ્રકોપને સમાન કરી દીધો. અને તે આબાદીને સપાટ કરી દીધી\n\nતે નથી ડરતો તેના વિનાશી પરિણામથી"
+    },
+    {
+        "No": 22,
+        "Surah English": "Surah Al-Aala (Glorifying the Creator and the success of the purified) :-)\n\nBismillah Ir Rehmaan Ir Raheem \n\nGlorify the name of your Lord, the Most High\n\nWho Created and Proportioned\n\nAnd who destined and then guided\n\nAnd who brings out the green pasture \n\nAnd then makes it withered black\n\nWe will make you recite (O Muhammad (SAW), and you will not forget \n\nExcept what Allah should will. He knows what is declared and what is hidden.\n\nAnd We will ease you towards ease.\n\nSo remind with the Qur'an, if the reminder should benefit.\n\nHe who fears or are in awe of Allah will be reminded.\n\nBut the wretched one will avoid it.\n\nHe who will burn in the greatest fire. \n\nNeither dying there nor living.\n\nHe has certainly succeeded who purifies himself.\n\nAnd mentions the name of his Lord and prays.\n\nBut you deniers prefer the worldly life.\n\nWhile the hereafter is better and more enduring.\n\nIndeed this is in the earlier scriptures\n\nThe scriptures of Abraham (AS) and Musa (AS).",
+        "Surah Gujarati": "સૂરત અલ્ અઁઅલાં (સર્વોચ્ચ અલ્લાહની મહિમા અને અંતિમ વિજેતાઓનું વર્ણન) :-)\n\nબિસ્મિલ્લાહિર્ રહમાનિર્ રહીમ\n\nપોતાના સર્વોચ્ચ પાલનહારના નામની પવિત્રતા બયાન કર\n\nજેણે સર્જન કર્યુ અને ઠીક-ઠાક કર્યો\n\nઅને જેણે ભાગ્ય બનાવ્યું અને પછી માર્ગ બતાવ્યો\n\nઅને જેણે તાજી વનસ્પતિઓ ઉપજાવી\n\nપછી તેણે તેને સુકાવીને કાળો કચરો બનાવી દીધો\n\nઅમે તમને પઢાવીશુ પછી તમે નહીં ભુલો\n\nસિવાય જે કંઇ અલ્લાહ ઇચ્છે, તે જાહેર અને છુપી વાતોને જાણે છે\n\nઅમે તમારા માટે સરળતા પેદા કરી દઇશું\n\nતો તમે શિખામણ આપતા રહો, જો શિખામણ લાભદાયક હોય\n\nડરવાવાળો તો શિખામણ ગ્રહણ કરશે\n\nદુર્ભાગી તેનાથી દૂર રહેશે\n\nજે મોટી આગમાં જશે\n\nત્યાં ન તો તે મૃત્યુ પામશે ન તો જીવશે\n\nખરેખર તેણે સફળતા પ્રાપ્ત કરી જે પવિત્ર થઇ ગયો\n\nઅને જેણે પોતાના પાલનહારના નામનું સ્મરણ કર્યુ, અને નમાઝ પઢતો રહ્યો\n\nપરંતુ તમે તો દુનિયાવી જીવનને પ્રાથમિકતા આપો છો\n\nઅને આખિરત સર્વોત્તમ અને અવિનાશી છે\n\nઆ વાતો પ્રથમ ગ્રંથોમાં પણ છે\n\n(એટલે કે) ઇબ્રાહીમ અને મૂસાના ગ્રંથોમાં"
+    }
+];
+        let index = 0;
+        let language = 'english';
+
+        function displaySurah() {
+            const surah = data[index];
+            document.getElementById('surahContent').textContent = language === 'english'
+                ? surah['Surah English']
+                : surah['Surah Gujarati'];
+
+            document.getElementById('toggleLang').textContent = language === 'english'
+                ? 'Switch to Gujarati'
+                : 'Switch to English';
+        }
+
+        function toggleLanguage() {
+            language = language === 'english' ? 'gujarati' : 'english';
+            displaySurah();
+        }
+
+        function nextSurah() {
+            index = index < data.length - 1 ? index + 1 : 0;
+            displaySurah();
+        }
+
+        function prevSurah() {
+            index = index > 0 ? index - 1 : data.length - 1;
+            displaySurah();
+        }
+
+        function toggleNightMode() {
+            document.body.classList.toggle('night-mode');
+        }
+
+        document.getElementById('search').addEventListener('input', function () {
+            const value = this.value.toLowerCase();
+            const found = data.findIndex(surah =>
+                surah['Surah English'].toLowerCase().includes(value) ||
+                surah['Surah Gujarati'].toLowerCase().includes(value)
+            );
+            if (found !== -1) {
+                index = found;
+                displaySurah();
+            }
+        });
+
+        displaySurah();
+    </script>
+</body>
+</html>
